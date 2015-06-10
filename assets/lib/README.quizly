@@ -1,0 +1,81 @@
+# README.Quizly
+
+Quizly files should be stored in assets/lib.
+
+0. Move (mv) quizly to quizly-old or something, just in case.
+1. Copy the latest quizly-gcb-<mmdd>.tar to assets/lib
+2. tar xvzf quizly-gcb-<mmdd>.tar to create the structure shown below:
+3. Test everything and delete (rm) quizly-old if things are ok.
+
+a quizly
+a quizly/activity-quizme.js
+a quizly/blockly-all-uncompressed.js
+a quizly/blockly-all.js
+a quizly/blockly-toolbox.js
+a quizly/blockly.html
+a quizly/blockly_compressed.js
+a quizly/blockly_uncompressed.js
+a quizly/common.css
+a quizly/component-types.js
+a quizly/gcb-frame.html
+a quizly/index.html
+a quizly/javascript
+a quizly/javascript.js
+a quizly/javascript_compressed.js
+a quizly/jquery-1.9.1.min.js
+a quizly/language
+a quizly/makequiz-helper.js
+a quizly/makequiz.css
+a quizly/makequiz.html
+a quizly/makequiz.js
+a quizly/media
+a quizly/overrides.js
+a quizly/quizme-components.js
+a quizly/quizme-coursebuilder.js
+a quizly/quizme-eval.js
+a quizly/quizme-helper.js
+a quizly/quizme-initblocklyeditor.js
+a quizly/quizme-progex.html
+a quizly/quizme.js
+a quizly/quizzes.json
+a quizly/README.git
+a quizly/README.quizly
+a quizly/README.tarball
+a quizly/README.update
+a quizly/style.css
+a quizly/media/1x1.gif
+a quizly/media/backpack-small.png
+a quizly/media/blockly.css
+a quizly/media/click.wav
+a quizly/media/delete.wav
+a quizly/media/frown.jpg
+a quizly/media/handclosed.cur
+a quizly/media/handopen.cur
+a quizly/media/quizly-screen-crop.png
+a quizly/media/quizly-screen-crop.tiff
+a quizly/media/quizly-screen-small.png
+a quizly/media/quizly-screen.png
+a quizly/media/quizly-screen.tiff
+a quizly/media/quote0.png
+a quizly/media/quote1.png
+a quizly/media/smiley.jpg
+a quizly/media/trashbody.png
+a quizly/media/trashlid.png
+a quizly/media/tree.png
+a quizly/language/control.js
+a quizly/language/lexical-variables.js
+a quizly/language/lists.js
+a quizly/language/logic.js
+a quizly/language/math.js
+a quizly/language/procedures.js
+a quizly/language/text.js
+a quizly/language/utilities.js
+a quizly/javascript/colour.js
+a quizly/javascript/componentblock.js
+a quizly/javascript/control.js
+a quizly/javascript/lists.js
+a quizly/javascript/logic.js
+a quizly/javascript/math.js
+a quizly/javascript/procedures.js
+a quizly/javascript/text.js
+a quizly/javascript/variables.js

@@ -1,0 +1,610 @@
+{
+  "entities": [
+    {
+      "is_draft": false, 
+      "path": "files/assets/css/butterbar.css"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/css/main.css"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/Atari_Pong_240.jpg"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/BBCh5VigenereCipher.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/BtoB_napster_cartoon.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/Canvas.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/CanvasWithN.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/ClassifyExperiment.aia"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/ClassifyExperimentQR.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/ClassifyExperimentScreen.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/ClientServerModel.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/Coin-edge.gif"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/CoinFlipExperimentSrc.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/CoinflipQRcodeApk.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/DateNow.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/FaceModel.PNG"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/FirstNDivisibleByM.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/ForEach.PNG"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/FusionTableExampleGallery.JPG"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/FusionTableMap.JPG"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/MapTourScreenshot.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/PlayerList.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/RankingImage.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/SearchAppQR.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/SearchExperiment.aia"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/ShakingBlock.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/SortAppQR.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/SortExperiment.aia"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/Timer.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/TinyDBTwoStoresAndAGet.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/TinyWebDBgotvalue.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/WebDbGotValueAnnotated.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/aaron.jpg"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/allblocksexp.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/android_teachMobileCSP.jpg"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/appinventor-logo.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/banner1.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/betsy.jpg"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/binary-tshirt.jpg"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/blocklymaze.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/blowntobits.jpg"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/buggyif.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/buggyif2.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/buttonClickDisplayNameProcedure.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/buttonClickDisplayNameProcedureCorrected.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/buttonClickSelectsListItem.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/buttonClickSelectsListItemX.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/chery.jpg"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/circleflower.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/classifyscreen.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/clock.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/codeorgmaze.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/coinflip1-screen.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/dave.jpg"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/dilbert.jpg"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/dotsizesequence.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/dotsizesequence.tiff"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/favicon.ico"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/forEachPentagon.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/forum_changesettings.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/forum_newposting_student.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/forum_selectcategory_student.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/forward40.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/forward40noparams.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/getHighestScore.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/getdotsize.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/getdotsize.tiff"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/graph_paper.pdf"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/graph_xsquared.gif"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/imageA.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/imageA.tiff"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/imagebynumbers.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/imagebynumbers.tiff"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/initdotsize.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/initdotsize.tiff"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/internetslide.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/internetslide2.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/jen.jpg"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/jim.jpg"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/kelly.jpg"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/listOfLists.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/listpickerelements.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/listsOfListsListLength.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/listsOfListsSelectAnItem.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/locationsensor.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/log2n.gif"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/logcurve.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/logn_graph.jpeg"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/logo.jpg"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/logoface.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/logoflower.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/makealist8.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/mobilecsp-128.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/mobilecsp-64.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/mobilecsp-92.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/mobilecsp.jpg"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/mobilecsp.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/mydirectionsscreen.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/n_nlogn_n2.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/namesList.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/namesList1.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/namesListIndex5.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/namesListIndexX.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/nsf-logo.jpeg"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/nsquared_vs_n_graph.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/pauline.jpg"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/pentagonalgorithm.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/pre-expression-missing10.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/pre-expression-missing10.tiff"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/pre-expression-true.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/pre-if-sayhello.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/ralph.jpg"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/randomsequence.jpeg"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/richard.jpg"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/screennoparams.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/screenshotexperiment.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/screenshotnewtopscore.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/screenshotnewuser.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/screenshotwelcomeback2.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/searchappscreen.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/searchlookups.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/setdotsize.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/setdotsize.tiff"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/setmininterval.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/setxtorandomint.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/shapesscreenshot.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/smiley.jpg"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/sortappscreen.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/spiral.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/storeget.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/testappblocks.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/testappcompanion.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/testappdesigner.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/testappselect.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/welcome_v2_highlight.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/whereisnorthscreen.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/img/your_logo_here.png"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/assets/js/activity-34.js"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/course.yaml"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/data/course.json"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/views/course.html"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/views/resources.html"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/views/staff.html"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "files/views/summary.html"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "models/I18nProgressEntity.json"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "models/LabelEntity.json"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "models/QuestionEntity.json"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "models/QuestionGroupEntity.json"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "models/ResourceBundleEntity.json"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "models/RoleEntity.json"
+    }, 
+    {
+      "is_draft": false, 
+      "path": "models/_SkillEntity.json"
+    }
+  ], 
+  "raw": "course:/mobileCSP::ns_mobileCSP", 
+  "version": "1.3"
+}

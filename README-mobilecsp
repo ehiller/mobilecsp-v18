@@ -1,0 +1,26 @@
+This is the directory for our GCB course:
+
+The root course is at:
+http://https://ram8647.appspot.com
+
+That is the version that is updated when GCB is
+updated here. 
+
+The main course for students is at:
+https://ram8647.appspot.com/mobileCSP/
+
+The PD course is at:
+https://ram8647.appspot.com/teach_mobileCSP
+
+Dave's AI only course is at:
+https://ram8647.appspot.com/mobileProgramming
+
+Current Version of GCB should be numbered -- e.g., 1.6.0
+Current Version of MobileCSP should be named /mobilecsp
+Deprecated versions should be:  /mobilecsp-deprec
+
+Note: MobileCSP contains custom modules which must
+be updated properly.  See the instructions in 
+/mobileCSP/README.UPDATE
+
+

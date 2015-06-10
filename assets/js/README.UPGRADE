@@ -1,0 +1,52 @@
+UPGRADING COURSEBUILDER
+----------------------
+Upgrade from any version to the latest version (1.5.1)
+
+-Make a complete copy of your old version of Course Builder and all your data.
+-Download and unzip the latest version of Course Builder.
+-Copy the /assets and /data folders from your old version to the latest version. If you encounter visual oddities, check and adjust your .css file in /assets/css. New definitions may have been added or previous definitions changed.
+-Make the appropriate changes in your course.yaml.
+-# Make the appropriate changes in your course_template.yaml.
+-Change your course name in app.yaml in the latest version of Course Builder.
+-Change your version: value in app.yaml in the latest version.
+
+-Manually transfer other modifications you made in the individual template files.
+
+* views/base.html -- needs to include script for activity-quizme.js
+* (as of 1.5) views/base_course.html -- needs to include script for activity-quizme.js
+
+-Manually transfer any modifications you made to the Python .py files.
+
+* controllers/assessments.py
+* tools/verify.py
+
+-In the terminal, go to your new Course Builder root directory.
+Use the appcfg.py command to update your index by typing (do not forget the period at the end): appcfg.py update_indexes .
+
+** NOTE: When I try this appcfg.py is not on my path. To fix that I starte GoogleAppEngineLauncher, which adds the appengine
+commands to the path.
+
+- Type your email and application-specific password. There are no messages from Course Builder if you are successful.
+
+** NOTE: Mine always crashes with a certificate error that's been reported on Stackoverflow:
+
+   http://stackoverflow.com/questions/13899530/gae-sdk-1-7-4-and-invalidcertificateexception
+
+   The trick is to delete the following file and restart dev_appserver.py:
+
+   GoogleAppEngineLauncher/Contents/Resources/GoogleAppEngineDefault.bundle/Content‌​s/Resources/google_appengine/lib/ cacerts/cacerts.txt
+
+-Deploy your new version to Google App Engine.
+
+
+UPGRADING QUIZME
+---------------
+To upgrade to a new version of the QUIZME assets, 
+
+* cp quizme.tar.Z to this directory.
+* uncompress quizme.tar.Z
+* tar xvf quizme.tar -- this will overwrite changed files in /quizme
+  leaving the unchanged files alone.
+
+Confirm that /quizme contains the file quizme-progex.html, a copy of
+which is included in this directory for safekeeping. 

@@ -1,0 +1,27 @@
+This is the Quizly component.  It can be used to create
+Quizly Exercises as GCB lessons. 
+
+Source code:
+Besides the __init.py__ file in this directory, the source
+code for this component resides in assets/lib.
+
+Update:
+To update the source code 
+
+* Download the quizly-gcb-mmdd.tar file containing all of the Quizly 
+  source files from the Quizly website. 
+  https://code.google.com/p/quizly/downloads/list
+
+* Untar quizly-gcb-mmdd.tar in the GCB assets/lib/ folder.
+
+* Download the quizly-gcb-component.zip from the Quizly website.
+  https://code.google.com/p/quizly/downloads/list
+
+* Unzip it in extensions/tags/ folder.
+
+That should do it.
+
+Instructions:
+Additional instructions are available on the Quizly wiki:
+  https://code.google.com/p/quizly/wiki/EmbeddingQuizlyInGoogleCourseBuilder
+

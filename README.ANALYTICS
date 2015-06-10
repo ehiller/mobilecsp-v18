@@ -1,0 +1,12 @@
+Here are the commands that worked:
+
+appcfg.py download_data --config_file=bulkloader.yaml  --filename=student.csv --kind=Student --url=http://ram8647.appspot.com/_ah/remote_api --namespace=ns_teach_mobileCSP
+
+appcfg.py download_data --config_file=bulkloader.yaml  --filename=studentanswersCSP.csv --kind=StudentAnswersEntity --url=http://ram8647.appspot.com/_ah/remote_api --namespace=ns_teach_mobileCSP
+
+appcfg.py create_bulkloader_config --filename=bulkloader_teach_mobileCSP.yaml --url=http://ram8647.appspot.com/_ah/remote_api
+
+appcfg.py download_data --config_file=bulkloader.yaml  --filename=studentanswersCSP.csv --kind=StudentAnswersEntity --url=http://ram8647.appspot.com/_ah/remote_api --namespace=ns_teach_mobileCSP
+
+appcfg.py download_data --config_file=bulkloader.yaml  --filename=studentanswersCSP2.csv --kind=StudentAnswersEntity --url=http://ram8647.appspot.com/_ah/remote_api --namespace=ns_mobileCSP
+appcfg.py download_data --config_file=bulkloader.yaml  --filename=student2.csv --kind=Student --url=http://ram8647.appspot.com/_ah/remote_api --namespace=ns_mobileCSP

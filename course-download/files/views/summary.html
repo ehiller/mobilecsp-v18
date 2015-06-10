@@ -1,0 +1,42 @@
+{% if video_exists or image_exists %}
+  <div class="gcb-col-5">
+{% else %}
+  <div class="gcb-col-11">
+{% endif %}
+
+
+  <h1 class="gcb-product-headers-large">
+    {{course_info.course.title}}
+  </h1>
+
+  <p class="gcb-product-headers">
+  {{course_info.course.blurb | gcb_tags}}
+  </p>
+
+  <p class="gcb-bio-headers">
+    {{course_info.course.instructor_details | safe}}
+  </p>
+
+</div>
+
+{% if video_exists or image_exists %}
+  <div class="gcb-col-5">
+
+    {% if video_exists %}
+      {# I18N: Alt text for an embedded YouTube video player. #}
+      <iframe class="youtube-player" type="text/html" width="430"
+          title="{{ gettext('YouTube Video Player') }}"
+          height="300" src="{{course_info.course.main_video.url}}"
+          frameborder="0" allowfullscreen></iframe>
+    {% else%}
+      <img height="300"
+          alt="{{course_info.course.main_image.alt_text}}"
+          src="{{course_info.course.main_image.url}}">
+    {% endif %}
+
+<div style="text-align:center">
+<a target="_blank" href="http://www.revolvermaps.com/?target=enlarge&amp;i=6b8ig35p2gl&amp;color=ff0000&amp;m=0">
+<img src="http://rg.revolvermaps.com/h/m/a/0/ff0000/128/0/6b8ig35p2gl.png" width="300" alt="Map" style="border: 0px;" /></a>
+</div>
+  </div>
+{% endif %}

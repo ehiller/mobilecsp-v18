@@ -1,0 +1,23 @@
+Instructions for Updating as of Coursebuilder 1.8
+-------------------------------------------------
+
+0. Backup mobilecsp
+1. Install lxml lib for Python (this was a major pain on the Mac)
+   On MocOS, use $ STATIC_DEPS=true sudo pip install lxml
+2. Download coursebuilder_1.8
+3. Copy assets and data from mobilecsp  (optional, because we're downloading those)
+   - 
+4. Revise various files -- e.g., app.yaml, course_template.yaml, views/base.html, tools/verify.py
+   -
+5. Copy over modules and extensions for quizly
+
+On App Engine
+6. Download the data from mobilecsp to mobilecsp16-data.zip.
+   $ sh scripts/etl.sh download course  /mobileCSP ram8647 ram8647.appspot.com --archive_path mobilecps-data.zip
+7. Create a development server under my account :  elliptical-flow-95803.appspot.com
+8. Update from the terminal with the v1.8 that you just created 
+   $ appcfg.py update_indexes .
+   $ appcfg.py update .
+9. Upload the data from mobilecsp16-data.zip to elliptical-flow-95803
+   See: https://developers.google.com/appengine/docs/python/tools/uploadinganapp#Python_Uploading_the_app
+   $ sh scripts/etl.sh upload course /mobilecsp18 elliptical-flow-95803 elliptical-flow-95803.appspot.com --archive_path mobilecsp16-data.zip 

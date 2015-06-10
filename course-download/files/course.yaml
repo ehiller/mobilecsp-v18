@@ -1,0 +1,60 @@
+base: {after_body_tag_begins: <!-- base.after_body_tag_begins -->, after_main_content_ends: <!--
+    base.after_main_content_ends -->, after_navbar_begins: <!-- base.after_navbar_begins
+    -->, after_top_content_ends: <!-- base.after_top_content_ends -->, before_body_tag_ends: <!--
+    base.before_body_tag_ends -->, before_head_tag_ends: <!-- base.before_head_tag_ends
+    -->, before_navbar_ends: <!-- base.before_navbar_ends --> <!-- Here we enable
+    the search module. --> <script src="/modules/search/assets/search.js"></script>
+    <link rel="stylesheet" type="text/css" href="/modules/search/assets/search.css"
+    /> <li class="gcb-pull-right"> <form class="gcb-search-form" action="search" method="get">
+    <input class="gcb-search-box" name="query" type="text" > <input value="Search"
+    class="gcb-button gcb-search-button" type="submit"> </form> </li>, locale: en_US,
+  nav_header: Mobile CSP, privacy_terms_url: PRIVACY_POLICY_AND_TERMS_OF_SERVICE,
+  show_gplus_button: true}
+course:
+  admin_user_emails: '[ram8647@gmail.com][christine.boyle15@gmail.com][kenneth.thomas@trincoll.edu]'
+  announcement_list_email: ''
+  blurb: "This course is supported by the Mobile Computer Science Principles\nProject\
+    \ (<a target=\"_blank\" \nhref=\"http://mobile-csp.org\">Mobile CSP</a>), an NSF-funded\
+    \ \neffort to provide a broad and rigorous introduction to \ncomputer science\
+    \ based on App Inventor, a mobile programming\nlanguage for Android devices. \
+    \  The course is based on the \nCollege Board's emerging Advanced Placement (AP)\
+    \ \nComputer Science Principles curriculum framework for introductory computer\
+    \ science.\n\n<p>In this course you will learn computer science by building socially\
+    \ \nuseful mobile apps.  In addition to programming and computer science principles,\
+    \ \nthe course is project-based and emphasizes writing, communication, collaboration,\
+    \ \nand creativity. \n</p>\n\n<p>\n<img align=\"left\" src=\"http://www.nsf.gov/pubs/1998/nsf98142/nsf4c.jpg\"\
+    \ width=\"32\">\nThis material is based upon work supported by the National Science\
+    \ Foundation \nunder Grant Nos. CNS-1240841. Any opinions, findings, and conclusions\
+    \ or \nrecommendations expressed in this material are those of the author(s) and\
+    \ do not \nnecessarily reflect the views of the National Science Foundation.\n\
+    </p>\n\n"
+  browsable: false
+  forum_email: mobile-csp-online@googlegroups.com
+  forum_embed_url: https://groups.google.com/forum/embed/?place=forum/mobile-csp-online
+  forum_url: https://groups.google.com/group/mobile-csp-online
+  google_analytics_id: UA-41363320-3
+  google_tag_manager_id: GTM-NK2NXR
+  instructor_details: 'Ralph Morelli, Trinity College<br />
+
+    Jen Rosato, College of St. Scholastica<br />
+
+    Chery Takkunen, College of St. Scholasica<br />
+
+    Chinma Uche, CT-CSTA<br />
+
+    Dave Wolber, University of San Francisco
+
+    '
+  locale: en_US
+  main_image: {alt_text: Mobile CSP, url: 'https://ram8647.appspot.com/mobileCSP/assets/img/mobilecsp.jpg'}
+  main_video: {url: ''}
+  now_available: true
+  start_date: ''
+  title: Mobile CS Principles
+institution:
+  logo: {alt_text: YOUR_LOGO_HERE, url: assets/img/mobilecsp-64.png}
+  name: Trinity College
+  url: http://trincoll.edu
+preview: {}
+reg_form: {additional_registration_fields: '', can_register: true}
+unit: {hide_lesson_navigation_buttons: false}

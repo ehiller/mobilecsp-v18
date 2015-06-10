@@ -1,0 +1,9 @@
+To upgrade to a new version of the QUIZME assets, 
+
+* cp quizme.tar.Z to this directory.
+* uncompress quizme.tar.Z
+* tar xvf quizme.tar -- this will overwrite changed files in /quizme
+  leaving the unchanged files alone.
+
+Confirm that /quizme contains the file quizme-progex.html, a copy of
+which is included in this directory for safekeeping. 

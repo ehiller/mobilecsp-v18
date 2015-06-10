@@ -1,0 +1,12 @@
+This is the Quizly component.  It can be used to create
+Quizly Exercises as GCB lessons. 
+
+Source code:
+Besides the __init.py__ file in this directory, the source
+code for this component resides in assets/lib.
+
+Update:
+To update the source code, obtain the gcb-quizly.zip file
+containing all of the Quizly source files from the main
+Quizly directory (/Applications/MAMP/htdocs/quizly) and
+unzip it in the asset/lib directory.  

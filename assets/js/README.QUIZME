@@ -1,0 +1,379 @@
+How To Integrate Quizme Activities and Assessments into CourseBuilder
+---------------------------------------------------------------------
+
+There are two types of Quizme components in CourseBuilder, Activities
+and Assessments.
+
+A Quizme activity is a practice quiz that does not count toward the student's
+grade in CourseBuilder. 
+
+When loaded, a Quizme practice quiz generates random questions and
+provides provide feedback to the student.  The student can keep
+generating new questions.
+
+Quizme activities are a custom type of CB activity.  
+
+A Quizme asssessment is an assessment similar to a Mid or Fin assessment.
+It is meant to be taken only once and it counts toward the grade. 
+
+Specifying a Quizme Activity
+----------------------------
+
+Each Quizme activity is described in an Activity file of the form:
+'activity-<unit>.<lesson>.js', where <unit> gives the activity's unit
+number and <lesson> gives its lesson number.
+
+Quizme activities are specified in the 'activity' variable inside 
+this file or by using a combination of HTML and Javascript.   The 'activity' variable 
+is an array that consists of explanatory text plus one or more Question objects 
+that represent questions to be presented to the student.
+
+For now at least, Quizme activities consist of no explanatory text
+and only a single Question object. In this example, we have a
+practice quiz, meaning an indefinite number of quiz questions will
+be given and feedback provided.
+
+var activity = [
+  '<script>setupQuizmeActivity(this);</script>'
+];
+
+// Custom activity:  Creates a Quizme quiz in an iframe
+
+function setupQuizmeActivity(window) {
+  var quiz = {};
+  quiz.questionHTML = 'Complete the <font color="red">when Button1.Click</font> block so that the app will vibrate for 500 milliseconds when Button1 is clicked.',
+  quiz.questionsList = [ 
+    {questionHTML: 'Complete the <font color="red">when Button1.Click</font> block so that the app will vibrate for 500 milliseconds when Button1 is clicked.',
+     correctAnswerQuizme: 'true'
+    }];
+  quiz.correctAnswerQuizmePractice = true;
+  quiz.quizType = undefined;
+  quiz.hints = true;
+  quiz.hasanswerbox = false;
+  quiz.preamble = '<b>This activity will give you practice with various App Inventor programming problems.</b>';
+
+  // Save quiz details on the top window. This will be polled by quizme-helper during intialization.
+  window.activity = quiz;
+  renderQuizmeActivity(quiz,  $('#activityContents'));  
+}
+
+The attributes of the Quizme Question object include:
+ correctAnswerQuizmePractice -- as opposed to correctAnswerMultipleChoice
+ quizType -- the type of built-in Quizme quiz to present
+
+Identifying a Quizme Activity in the Data Files
+--------------------------------------------------------
+
+In lesson.csv, Quizme activities are marked 'yes' in the
+lesson_activity column just as built-in QR Activities. In this case,
+unit 3.1 is a Quizme quiz.
+
+  unit_id,unit_title,lesson_id,lesson_title,lesson_activity,lesson_activity_name,lesson_notes,lesson_video_id,lesson_objectives
+  6,Wrap Up and Coding Practice,1,,yes,,,ZAHpO0ohzhY,Summarize the Hello Purr Lesson
+
+
+Flow of Control for Loading a Quizme Activity
+---------------------------------------------
+
+Let's follow the flow-of-control when CB is loading the following Quizme activity, with unit_id=6 and lesson_id=1
+
+ 6,Wrap Up and Coding Practice,1,,yes,,,ZAHpO0ohzhY,Summarize the Hello Purr Lesson
+
+
+0) When you click on the link for this Quizme activity, CB's main
+controller will invoke servings.py/ActivityHandler(), which will
+extract the <unit> and <lesson> numbers as arguments.
+
+1) servings.py/ActivityHandler() fills in various template values,
+ e.g., the lesson title, in the templated page, activity.html, and
+ attempts to serve the page with unit_id=3 and lesson_id=1.
+
+// http://localhost:8080/activity?unit=6&lesson=1
+
+2) When an activity page is served, the lessons.ActivityHandler is invoked.
+It extracts the arguments (unit=6, lesson=1) and populates appropriate
+fields in the activity.html template. These are used to load the appropriate
+javascript assets and to set up the navigation arrows, etc.
+
+The last thing lessons.ActivityHandler does is call 'render('activity.html').
+
+3) When a page is rendered, it first loads the page and any scripts that
+are loaded in the page header.  For activities, it loads the appropriate
+javascript activity:
+
+// <script src="assets/js/activity-{{ units.unit_id }}.{{ lesson_id }}.js"></script>
+
+For Quizme activites, the javascript file defines the 'activity' variable:
+
+function setupQuizmeActivity(window) {
+  var quiz = {};
+  quiz.questionHTML = 'Complete the <font color="red">when Button1.Click</font> block so that the app will vibrate for 500 milliseconds when Button1 is clicked.',
+  quiz.questionsList = [ 
+    {questionHTML: 'Complete the <font color="red">when Button1.Click</font> block so that the app will vibrate for 500 milliseconds when Button1 is clicked.',
+     correctAnswerQuizme: 'true'
+    }];
+  quiz.correctAnswerQuizmePractice = true;
+  quiz.quizType = undefined;
+  quiz.hints = true;
+  quiz.hasanswerbox = false;
+  quiz.preamble = '<b>This activity will give you practice with various App Inventor programming problems.</b>';
+
+  // Save quiz details on the top window. This will be polled by quizme-helper during intialization.
+  window.activity = quiz;
+  renderQuizmeActivity(quiz,  $('#activityContents'));  
+}
+
+NOTE that by specifying the 'quizType', the Quizme designer can finely 
+shape the quiz's environment, focusing the student's attention on 
+just those App Inventor tools and blocks that are necessary to complete
+the exercise.
+
+4) One of the <div> sections in activity.html is the activityContents
+
+ <!-- <script>{{ lesson.activity }}</script> -->
+ <div style="width: 785px;" id="activityContents">
+ </div>
+
+When an activity page is rendered, code in activity-generic.js takes
+care of the details.  When loaded, it checks if the 'activity'
+variable (set in activity-6.1.js) is set.  If so, it invokes
+renderQuizmeActivity() passing it the 'activityContents' as its domRoot.
+
+renderQuizmeActivity() (in quizme/activity-quizme.js) sets up some 
+bookkeeping variables on the window's 'activity' variable and then appends 
+an iframe to the 'activityContents' <div> in the activity.html page.  The 
+iframe is sourced from assets/js/quizme/blockly.html:
+
+function renderQuizmeActivity(quizme, domRoot) {
+  console.log("RAM: renderQuizmeActivity");
+  var quizActivity = quizme;
+  var questionType = quizActivity.questionType;
+  var quizType = quizActivity.quizType;
+
+  var iframe = document.createElement('iframe');
+  iframe.setAttribute('src', '/assets/js/quizme/blockly.html');
+  iframe.setAttribute('width', '795');
+  iframe.setAttribute('height', '495');
+
+  domRoot.append('<p id="preamble">' + quizActivity.preamble + '</p>');
+  domRoot.append('<p id="quiz_question">' + quizActivity.questionHTML + '</p>');
+
+  if (quizActivity.hasanswerbox) {
+    domRoot.append('<input hidden="false" id="quiz_answer" width="40" type="text"></input>');
+  } else {
+    domRoot.append('<input hidden="true" id="quiz_answer" width="40" type="text"></input>');
+  }
+
+  if (quizActivity.checkAnswers) {
+    domRoot.append('<a class="gcb-button gcb-button-primary" id="checkAnswersBtn">Check your Answers</a><p/>');
+    domRoot.append('<p/><textarea style="width: 600px; height: 120px;" readonly="true" id="answerOutput"></textarea>');
+  }
+
+  if (quizActivity.hints) {
+    domRoot.append('<table><tr><td><div id="hint_html">Here is where the hint goes.</div>' + '&nbsp;&nbsp;' +
+                                '<a class="gcb-button gcb-button-primary" id="hintBtn">Hint</a>' + '&nbsp;&nbsp;' + 
+                                '<a class="gcb-button gcb-button-primary" id="newQuestionBtn">New Question</a>' + '&nbsp;&nbsp;' + 
+                                '<a class="gcb-button gcb-button-primary" id="submitBtn">Submit</a>' + '&nbsp;&nbsp;' + 
+                                '<p hidden="true" id="quiz_result">This is where the feedback goes</p></td></tr></table>');
+  } else {
+    domRoot.append('<table><tr><td>' +
+                                '<a class="gcb-button gcb-button-primary" id="newQuestionBtn">New Question</a>' + '&nbsp;&nbsp;' + 
+                                '<a class="gcb-button gcb-button-primary" id="submitBtn">Submit</a>' + '&nbsp;&nbsp;' + 
+                                '<p hidden="true" id="quiz_result">This is where the feedback goes</p></td></tr></table>');
+  }
+
+  domRoot.append(iframe);
+  $('#submitBtn').click(function() {checkQuizmeAnswers(quizActivity, false);});
+  $('#hintBtn').click(function() {giveHint();});
+  $('#newQuestionBtn').click(function() {giveNewQuestion();});
+
+}
+
+5) When blockly.html is loaded, it loads all of the Appinventor and 
+Quizme javascript code, as well as code needed to interface it with
+CourseBuilder. It then calls 'quizme-helper.js/initQuizme()'.
+
+6) If quiztype in quizme-helper.js/initQuiz(quiztype) is undefined, 
+initQuizme() grabs the booking data from the 'activity' variable:
+
+  if (!quiztype) {
+    if (window.document.title == "Blockly Frame") {
+      if (window.parent.activity) {
+        quiztype = processCbActivity(window.parent.activity);
+      } else if (window.parent.parent.activity) {
+        quiztype = processCbAcivity(window.parent.parent.activity);
+      } else if (window.parent.assessment) {
+        quiztype = processCbAssessment(window.parent.assessment);
+      } else if (window.parent.parent.assessment) {
+        quiztype = processCbAssessment(window.parent.parent.activity);
+      }
+    }
+  }
+
+7) The rest of the handling of setting up and displaying the
+quiz is handled by quizme code.
+
+Flow of Control for Processing the Quizme 'Submit' Button
+---------------------------------------------------------
+
+Processing of the 'Submit' button is handled by functions in the
+quizme/activity-quizme.html.
+
+
+Specifying a Quizme Assessment
+------------------------------
+
+A Quizme Assessment is specified similarly to a built-in assessment in the
+data/unit.csv file:
+
+  9,A,P3,Graded Programming Problem 3,,True
+  10,A,Fin,Post-course assessment,,True
+
+Quizme Assessments are named P1, P2, etc, and they are represented is
+files that named assets/js/assessment-P3.js.  The assessment details 
+are provided in a assessment_quizme variable:
+
+// Custom activity:  Creates a Quizme quiz in an iframe
+function setupQuizmeAssessment(window) {
+  var quiz = {};
+  quiz.preamble =  '<!-- hidden -->';
+  quiz.quiztype =  'quiz_relations_fillin';
+  quiz.hints =  true;
+  quiz.questionsList =  [
+     {questionHTML: '<h3>Complete the block in any way you like so that the <font color="red">resulting expression is true</font>. Then press submit.</h3>',
+      correctAnswerQuizme: 'true'
+     },
+			 ];
+
+  quiz.assessmentName =  'progex1'; // unique name submitted along with all of the answers
+  quiz.checkAnswers =  false;         // render a "Check your Answers" button to allow students to check answers prior to submitting?
+  quiz.formScript =  '/answer';  // OPTIONAL: the Google App Engine Python script to run to submit answers, defaults to '/answer'
+
+  window.assessment = quiz;
+}
+
+In addition to the built-in data fields (formScript, checkAnswers),
+the data fields for specifying a Quizme assessment are similar to
+those described for the Quizme Activity (See above).
+
+NOTE that by specifying the 'quizType', the Quizme designer can finely 
+shape the quiz's environment, focusing the student's attention on 
+just those App Inventor tools and blocks that are necessary to complete
+the exercise.
+
+
+Flow of Control for Handling Quizme Assessments
+-----------------------------------------------
+
+0) When you click on an Assessment link in CourseBuilder, the
+servings.py/AssessmentHandler will be invoked. 
+
+1) This will invoke the lessons/AssessmentHandler, which will fill-in
+the URL of the correct assessment-NN.js file in the
+views/assessment.html template:
+
+//    <script src="assets/js/assessment-{{ name }}.js"></script>
+
+The assessment.html template contains a 'assessmentContents' <div>,
+which is where the assessment's iframe will be placed.
+
+2) When assessment.html is rendered (from lessons/AssessmentHandler()), it
+invokes the activity-generic/renderAssessment() function.  This uses the
+assessment's question type to set up and load the Quizme iframe:
+
+ else if (q.correctAnswerQuizme) {
+   createBlocklyFrame(domRoot,assessment);
+ }
+
+And in quizme/activity-quizme.js:
+
+function createBlocklyFrame(domRoot, assessment) {
+  iframe = document.createElement('iframe');
+  iframe.setAttribute('id', 'quizmeframe');
+  iframe.setAttribute('tag', 'quizmeframe');
+  iframe.setAttribute('src', '/assets/js/quizme/blockly.html');
+  iframe.setAttribute('width', '995');
+  iframe.setAttribute('height', '515');
+  domRoot.append(iframe);
+
+  if (assessment.hasanswerbox) {
+    domRoot.append('<input hidden="false" id="quiz_answer" width="40" type="text"></input>');
+  } else {
+    domRoot.append('<input hidden="true" id="quiz_answer" width="40" type="text"></input>');
+  }
+
+  if (assessment.checkAnswers) {
+    domRoot.append('<a class="gcb-button gcb-button-primary" id="checkAnswersBtn">Check your Answers</a><p/>');
+    domRoot.append('<p/><textarea style="width: 600px; height: 120px;" readonly="true" id="answerOutput"></textarea>');
+    assessment['hasCheckAnswerBtn'] = true;
+  }
+
+  if (assessment.hints) {
+    domRoot.append('<table><tr><td><div id="hint_html">Here is where the hint goes.</div>' + '&nbsp;&nbsp;' +
+                                '<a class="gcb-button gcb-button-primary" id="hintBtn">Hint</a>' + '&nbsp;&nbsp;' + 
+                                '<a class="gcb-button gcb-button-primary" id="submitAnswersBtn">Submit</a></td></tr></table>');
+    assessment['hasHintsBtn'] = true;
+    assessment['hasSubmitBtn'] = true;
+    $('#hintBtn').click(function() {giveHint();});
+  } else {
+    domRoot.append('<br/><a class="gcb-button gcb-button-primary" id="submitAnswersBtn">Submit</a>'); 
+    assessment['hasSubmitBtn'] = true;
+  }
+}
+
+
+3) When blockly.html is loaded, it loads all of the Appinventor and 
+Quizme javascript code, as well as code needed to interface it with
+CourseBuilder. It then calls 'quizme-helper.js/initQuizme()'.
+
+4) initQuizme() checks for the existence of an 'assessment' object
+in the context:
+
+
+  if (!quiztype) {
+    if (window.document.title == "Blockly Frame") {
+      if (window.parent.activity) {
+        quiztype = processCbActivity(window.parent.activity);
+      } else if (window.parent.parent.activity) {
+        quiztype = processCbAcivity(window.parent.parent.activity);
+      } else if (window.parent.assessment) {
+        quiztype = processCbAssessment(window.parent.assessment);
+      } else if (window.parent.parent.assessment) {
+        quiztype = processCbAssessment(window.parent.parent.activity);
+      }
+    }
+  }
+
+and sets up the appropriate quiz context, including the Blockly environment,
+before injecting the Blockly editor and workspace into the iframe and displaying
+the quiz.
+
+Flow of Control for Processing the Quizme Assessment 'Submit' Button
+--------------------------------------------------------------------
+
+For a Quizme Assessment, the activity-quizme/evaluateAnswerAndDisplayFeedback() 
+function is called:
+
+function evaluateAnswerAndDisplayFeedback() {
+  console.log("RAM: evaluateAndRecordAnswer()");
+  var result_element = document.getElementById('quiz_result');
+  Blockly.Quizme.result_element = result_element;
+  Blockly.Quizme.imgpath = './assets/js/quizme/media/';   // Quiz Builder 
+  var result = Blockly.Quizme.evaluateUserAnswer(result_element);
+  return result;
+}
+
+Rather that simply providing the student with feedback, this evaluates
+their answer and records it in the CourseBuilder datastore.  These actions
+are handled by handlers in controllers/assessments.py, which takes care
+of the following tasks:
+
+- Store the quiz answers and results in the App Engine datastore.
+- Update the student's profile data
+- Update the student's overall grade (currently only at the Fin assessment)
+
+To tweak the various built-in conventions regarding grading, it will necessary
+to revise the methods in controllers/assessments.py.
+
+
+

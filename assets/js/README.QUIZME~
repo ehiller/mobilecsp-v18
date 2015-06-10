@@ -1,0 +1,330 @@
+How To Integrate Quizme Activities and Assessments into CourseBuilder
+---------------------------------------------------------------------
+
+There are two types of Quizme components in CourseBuilder, Activities
+and Assessments.
+
+A Quizme activity is a practice quiz that does not count toward the student's
+grade in CourseBuilder. 
+
+When loaded, a Quizme practice quiz generates random questions and
+provides provide feedback to the student.  The student can keep
+generating new questions.
+
+Quizme activities are a type of built-in CB activity.  
+
+A Quizme asssessment is an assessment similar to a Mid or Fin assessment.
+It is meant to be taken only once and it counts toward the grade. 
+
+Specifying a Quizme Activity
+----------------------------
+
+Each Quizme activity is described in an Activity file of the form:
+'activity-<unit>.<lesson>.js', where <unit> gives the activity's unit
+number and <lesson> gives its lesson number.
+
+Quizme activities are fully specified in the 'activity' variable
+inside this file.  The 'activity' variable is an array that consists
+of explanatory text plus one or more Question objects that represent
+questions to be presented to the student.
+
+For now at least, Quizme activities consist of no explanatory text
+and only a single Question object:
+
+// var activity = [
+ 
+//   { questionType: 'quizme',
+//     correctAnswerQuizmePractice: true,
+//     quizType: 'quiz_relations', 
+//     //    keepers :  ['math_number', 'math_compare', 'math_add', 'math_subtract', 'math_divide', 'math_multiply', 'math_power'],
+//     keepers :  ['math_number', 'math_compare'],
+//     //    components : ['Button']
+//     components : []
+//   }   
+
+// ];
+
+The attributes of the Quizme Question object include:
+ questionType -- 'quizme' (as opposed to multiple choice, fill-in, etc.)
+ correctAnswerQuizmePractice -- as opposed to correctAnswerMultipleChoice
+ quizType -- the type of built-in Quizme quiz to present
+ keepers -- an array of App Inventor blocks to display in the workspace
+ components -- an array of App Inventor components to display in the workspace
+
+Identifying a Quizme Activity in the Data Files
+--------------------------------------------------------
+
+In lesson.csv, Quizme activities are marked 'yes' in the
+lesson_activity column just as built-in QR Activities. In this case,
+unit 3.1 is a Quizme quiz.
+
+ unit_id,unit_title,lesson_id,lesson_title,lesson_activity,lesson_activity_name,lesson_notes,lesson_video_id,lesson_objectives
+ 2,Setup,1,Setting Up App Inventor,yes,,http://explore.appinventor.mit.edu/setup-main-new,PybIN-fDL70,<ul><li>Install app inventor.</li></ul>
+ 3,Simple Expressions,1,Long Division,yes,Arithmetic Practice,,NcADzGz3bSI,<ul><li>Correctly apply simple arithmetic operators.</li></ul>
+
+
+Flow of Control for Loading a Quizme Activity
+---------------------------------------------
+
+Let's follow the flow-of-control when CB is loading the following Quizme activity, with unit_id=3 and lesson_id=1
+
+ 3,Simple Expressions,1,Long Division,yes,Arithmetic Practice,,NcADzGz3bSI,<ul><li>Correctly apply simple arithmetic operators.</li></ul>
+
+
+0) When you click on the link for this Quizme activity, CB's main
+controller will invoke servings.py/ActivityHandler(), which will
+extract the <unit> and <lesson> numbers as arguments.
+
+1) servings.py/ActivityHandler() fills in various template values,
+ e.g., the lesson title, in the templated page, activity.html, and
+ attempts to serve the page with unit_id=3 and lesson_id=1.
+
+// http://localhost:8080/activity?unit=3&lesson=1
+
+2) When an activity page is served, the lessons.ActivityHandler is invoked.
+It extracts the arguments (unit=3, lesson=1) and populates appropriate
+fields in the activity.html template. These are used to load the appropriate
+javascript assets and to set up the navigation arrows, etc.
+
+The last thing lessons.ActivityHandler does is call 'render('activity.html').
+
+3) When a page is rendered, it first loads the page and any scripts that
+are loaded in the page header.  For activities, it loads the appropriate
+javascript activity:
+
+// <script src="assets/js/activity-{{ units.unit_id }}.{{ lesson_id }}.js"></script>
+
+For Quizme activites, the javascript file defines the 'activity' variable:
+
+var activity = [
+ 
+  { questionType: 'quizme',
+    correctAnswerQuizmePractice: true,
+    quizType: 'quiz_arithmetic', 
+    keepers :  ['math_number', 'math_compare', 'math_add', 'math_subtract', 'math_divide', 'math_multiply', 'math_power'],
+    //    components : ['Button']
+    components : []
+  }   
+
+];
+
+NOTE that by specifying the 'quizType' and providing the appropriate
+lists of 'keepers' and 'components', the Quizme designer can finely 
+shape the quiz's environment, focusing the student's attention on 
+just those App Inventor tools and blocks that are necessary to complete
+the exercise.
+
+
+4) One of the <div> sections in activity.html is the activityContents
+
+ <!-- <script>{{ lesson.activity }}</script> -->
+ <div style="width: 785px;" id="activityContents">
+ </div>
+
+When an activity page is rendered, code in activity-generic.js takes
+care of the details.  When loaded, it checks if the 'activity'
+variable (set in activity-3.1.js) is set.  If so, it invokes
+renderQuizmeActivity() passing it the 'activityContents' as its domRoot.
+
+renderQuuzmeActivity() sets up some bookkeeping variables on the
+window's 'activity' variable and then appends an iframe to the
+'activityContents' <div> in the activity.html page.  The iframe is
+sourced from assets/js/quizme/progex.html:
+
+// function renderQuizmeActivity(quizme, domRoot) {
+//   console.log("RAM: renderQuizmeActivity");
+//   var quizActivity = quizme[0];
+//   var questionType = quizActivity.questionType;
+//   var quizType = quizActivity.quizType;
+
+//   var iframe = document.createElement('iframe');
+//   iframe.setAttribute('src', '/assets/js/quizme/progex.html');
+//   iframe.setAttribute('width', '1140');
+//   iframe.setAttribute('height', '630');
+//   domRoot.append(iframe);
+// }
+
+5) When progex.html is loaded, it loads all of the Appinventor and 
+Quizme javascript code, as well as code needed to interface it with
+CourseBuilder. It then calls 'quizme-helper.js/initQuizme()'.
+
+6) If quiztype in quizme-helper.js/initQuiz(quiztype) is undefined, 
+initQuizme() grabs the booking data from the 'activity' variable:
+
+//   // Are we within the CourseBuilder Quizme practice quiz context?
+//   // This would be defined in a file of the form: ./assets/js/quizme-3.1.js
+
+//   var activity  = window.parent.activity;
+//   if (activity) {
+//     quiztype = activity[0].quizType; 
+//     keepers = activity[0].keepers;
+//     components = activity[0].components;
+//   }
+
+7) The rest of the handling of setting up and displaying the
+quiz is handled by quizme code.
+
+
+Flow of Control for Processing the Quizme 'Submit' Button
+---------------------------------------------------------
+
+The Submit button is coded as follows in progex.html:
+
+//  <td align="center"><button tag="submit_new_toggle" id="submit_new_toggle" onclick="submitProgEx()">Submit</button></td>
+
+The 'submitProgEx()' function is found in quizme-coursebuilder.js,
+which contains code for handling the quizzes:
+
+// function submitProgEx() {
+//   console.log("RAM: submitProgEx ");
+//   //  var quizme = window.parent.quizme;
+//   var quizme = window.parent.activity;
+//   var button = document.getElementById('submit_new_toggle');
+//   if (button.innerHTML == 'New Question') {
+//     showQuiz(quizme[0].quizType);
+//   } else {
+//     if (quizme) {
+//       evaluateUserAnswer();
+//     } else {
+//       submitOneShot();
+//     }
+//   }
+// }
+
+It has two different ways of handling quizzes, one for Quizme activities
+and one for Quizme assessments. For activities, quizzes are handled
+by the quizme-helper.js/evaluateUserAnswer(), with no changes necessary.
+This may change when we decide to keep track of how many quizzes the
+student attempted.
+
+Quizme assessments are handled by the submitOneShot() function. 
+
+Specifying a Quizme Assessment
+------------------------------
+
+A Quizme Assessment is specified similarly to a built-in assessment in the
+data/unit.csv file:
+
+  9,A,P3,Graded Programming Problem 3,,True
+  10,A,Fin,Post-course assessment,,True
+
+Quizme Assessments are named P1, P2, etc, and they are represented is
+files that named assets/js/assessment-P3.js.  The assessment details 
+are provided in a assessment_quizme variable:
+
+// var assessment_quizme = {
+//   // HTML to display at the start of the page
+//   preamble: '<!-- hidden -->',
+//   quiztype: 'quiz_relations',
+//   keepers : ['math_number', 'math_compare'],
+//   components : [], 
+ 
+//   // An ordered list of questions, with each question's type implicitly determined by the fields it possesses:
+//   //   choices              - multiple choice question (with exactly one correct answer)
+//   //   correctAnswerString  - case-insensitive string match
+//   //   correctAnswerRegex   - freetext regular expression match
+//   //   correctAnswerNumeric - freetext numeric match
+
+//   questionsList: [
+//     {questionHTML: 'Programming Problem 3: Evaluate the expression shown in the workspace.',
+//      correctAnswerQuizme: 'true'
+//     },
+
+//   ],
+
+//   assessmentName: 'progex3', // unique name submitted along with all of the answers
+//   checkAnswers: false,         // render a "Check your Answers" button to allow students to check answers prior to submitting?
+
+//   formScript: '/answer',  // OPTIONAL: the Google App Engine Python script to run to submit answers, defaults to '/answer'
+// }
+
+In addition to the built-in data fields (formScript, checkAnswers),
+the data fields for specifying a Quizme assessment are similar to
+those described for the Quizme Activity (See above).
+
+NOTE that by specifying the 'quizType' and providing the appropriate
+lists of 'keepers' and 'components', the Quizme designer can finely 
+shape the quiz's environment, focusing the student's attention on 
+just those App Inventor tools and blocks that are necessary to complete
+the exercise.
+
+
+Flow of Control for Handling Quizme Assessments
+-----------------------------------------------
+
+0) When you click on an Assessment link in CourseBuilder, the
+servings.py/AssessmentHandler will be invoked. 
+
+1) This will invoke the lessons/AssessmentHandler, which will fill-in
+the URL of the correct assessment-NN.js file in the
+views/assessment.html template:
+
+//    <script src="assets/js/assessment-{{ name }}.js"></script>
+
+The assessment.html template contains a 'assessmentContents' <div>,
+which is where the assessment's iframe will be placed.
+
+2) When assessment.html is rendered (from lessons/AssessmentHandler()), it
+invokes the activity-generic/renderAssessment() function.  This uses the
+assessment's question type to set up and load the Quizme iframe:
+
+//     else if (q.correctAnswerQuizme) {
+//       iframe = document.createElement('iframe');
+//       iframe.setAttribute('id', 'quizmeframe');
+//       iframe.setAttribute('tag', 'quizmeframe');
+//       iframe.setAttribute('src', './assets/js/quizme/quizme-progex.html');
+//       iframe.setAttribute('width', '995');
+//       iframe.setAttribute('height', '515');
+//       domRoot.append(iframe);
+//     }
+
+3) When progex.html is loaded, it loads all of the Appinventor and 
+Quizme javascript code, as well as code needed to interface it with
+CourseBuilder. It then calls 'quizme-helper.js/initQuizme()'.
+
+4) initQuizme() checks for the existence of an 'assessment' object
+in the context:
+
+//   // Are we within the CourseBuilder Quizme assessment context?
+//   // This would be defined in a file of the form: ./assets/js/assessments-P1.js
+//   var assessment = window.parent.assessment_quizme;
+//   if (assessment) {
+//     quiztype = assessment.quiztype;
+//     keepers = assessment.keepers;
+//     components = assessment.components;
+//   }
+
+and sets up the appropriate quiz context, including the Blockly environment,
+before injecting the Blockly editor and workspace into the iframe and displaying
+the quiz.
+
+Flow of Control for Processing the Quizme Assessment 'Submit' Button
+--------------------------------------------------------------------
+
+For a Quizme Assessment, the quime-coursebuilder/submitOneShot() function
+is called:
+
+// function submitOneShot() {
+//   console.log("RAM: submitOneShot ");
+//   evaluateAndRecordAnswer()
+//   var quizframe = window.parent.document.getElementById('quizmeframe');
+//   quizframe.hidden = true;
+//   //  quizframe.remove();    // Hiding seems to be good enough
+//   var maindiv = window.parent.document.getElementById('assessmentContents');
+//   maindiv.innerHTML = 'Thank you for taking the quiz. <br>Click My Profile to see your results.';
+// }
+
+Rather that simply providing the student with feedback, this evaluates
+their answer and records it in the CourseBuilder datastore.  These actions
+are handled by handlers in controllers/assessments.py, which takes care
+of the following tasks:
+
+- Store the quiz answers and results in the App Engine datastore.
+- Update the student's profile data
+- Update the student's overall grade (currently only at the Fin assessment)
+
+To tweak the various built-in conventions regarding grading, it will necessary
+to revise the methods in controllers/assessments.py.
+
+
+
