@@ -178,7 +178,6 @@ class ActivityScoreParser(jobs.MapReduceJob):
 
     def build_missing_scores(self):
          #validate total points for lessons, need both question collections for score and weight
-        total_scores = {}
         questions = self.params['questions_by_usage_id']
         questions_info = self.params['questions_by_question_id']
         for student_id in self.activity_scores:
@@ -224,12 +223,15 @@ class ActivityScoreParser(jobs.MapReduceJob):
             for user_id in student_user_ids:
                 cached_student_data = {}
                 cached_student_data['date'] = cached_date
-                cached_student_data['scores'] = activityParser.activity_scores.get(user_id, {})
-                MemcacheManager.set(cls._memcache_key_for_student(user_id), cached_student_data)
+                cached_student_data['scores'] = activityParser.activity_scores.get(Student.get_student_by_user_id(
+                    user_id).email, {})
+                MemcacheManager.set(cls._memcache_key_for_student(Student.get_student_by_user_id(user_id).email),
+                                    cached_student_data)
         else:
             uncached_students = []
             for student_id in student_user_ids:
-                scores_for_student = MemcacheManager.get(cls._memcache_key_for_student(student_id))
+                scores_for_student = MemcacheManager.get(cls._memcache_key_for_student(Student.get_student_by_user_id(
+                    student_id).email))
                 if scores_for_student:
                     cached_date = scores_for_student['date']
                     activityParser.activity_scores[student_id] = scores_for_student['scores']
@@ -256,8 +258,10 @@ class ActivityScoreParser(jobs.MapReduceJob):
                 for user_id in uncached_students:
                     cached_student_data = {}
                     cached_student_data['date'] = cached_date
-                    cached_student_data['scores'] = activityParser.activity_scores.get(user_id, {})
-                    MemcacheManager.set(cls._memcache_key_for_student(user_id), cached_student_data)
+                    cached_student_data['scores'] = activityParser.activity_scores.get(Student.get_student_by_user_id(
+                        user_id).email, {})
+                    MemcacheManager.set(cls._memcache_key_for_student(Student.get_student_by_user_id(user_id).email),
+                                        cached_student_data)
 
         score_data = {}
         score_data['date'] = cached_date
