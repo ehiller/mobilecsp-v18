@@ -46,7 +46,7 @@ function createBlocklyFrame(domRoot, assessment) {
   iframe.setAttribute('id', 'quizmeframe');
   iframe.setAttribute('tag', 'quizmeframe');
   iframe.setAttribute('quizname', assessment.name);
-  iframe.setAttribute('src', '/assets/lib/quizly/blockly.html?selector=hidden&backpack=hidden&quizname=' + assessment.name);
+  iframe.setAttribute('src', 'assets/lib/quizly/blockly.html?selector=hidden&backpack=hidden&quizname=' + assessment.name);
   iframe.setAttribute('width', '895');
   iframe.setAttribute('height', '515');
   domRoot.append(iframe);
@@ -96,9 +96,9 @@ function renderQuizmeActivity(quizme, domRoot) {
   var quizActivity = quizme;
 
   var iframe = document.createElement('iframe');
-  iframe.setAttribute('src', '/assets/lib/quizly/gcb-frame.html');
-  iframe.setAttribute('width', '795');
-  iframe.setAttribute('height', '495');
+  iframe.setAttribute('src', 'assets/lib/quizly/blockly.html');
+  iframe.setAttribute('width', '755');
+  iframe.setAttribute('height', '595');
 
   if (quizActivity.preamble) {
     domRoot.append('<h2 id="preamble">' + quizActivity.preamble + '</h2>');

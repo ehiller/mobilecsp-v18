@@ -1,3 +1,27 @@
+Updating on the Dashboard 
+------------------------- 
+When the dashboard is used to make a change to an asset or a template
+file the file is marked 'overridden' and is then out of sync with the
+corresponding asset on the local instance.
+
+* When updating to a new version of MobileCSP or GCB,
+using appcfg scripts does not update overridden assets.
+
+* RESTORING an overridden file will restore it to the
+  last version uploaded using appcfg. 
+
+* WHAT I DON'T UNDERSTAND
+-------------------------
+* Apparently, GCB keeps track of the differences between
+  versions.  For example, v18 has a file view/macros.html
+  in its base (/) and /mobileCSP and /teach_mobileCSP. But in
+  version 2, this file does not appear in the base (/) and doesn't 
+  appear in dot-2/mobileCSP and dot-2/teach_mobileCSP 
+  (version 2).  
+
+* BUG QUESTION:  Does restoring an overridden file in v18
+  restore it in v2?  I think so.
+
 Updating assets/lib/quizzes.json
 --------------------------------
 
@@ -15,41 +39,68 @@ That will update it on the trunk and branches.
 Updating GCB
 ------------
 
+* The current download page is:  
+  https://www.google.com/edu/openonline/course-builder/downloads/index.html
+
+* Upgrade documentation and release notes:
+  https://www.google.com/edu/openonline/course-builder/docs/1.10/upgrade-course-builder/upgrade-course-builder.html
+  https://www.google.com/edu/openonline/course-builder/docs/1.10/release-notes.html
+
+
+Basic Procedure
+----------------
 Here are the instructions provided by Google for updating
 
-Upgrade from any version to the latest version (1.5.1)
+Upgrade from any version to the latest version (1.8.1)
 
--Make a complete copy of your old version of Course Builder and all your data.
--Download and unzip the latest version of Course Builder.
--Copy the /assets and /data folders from your old version to the latest version. If you encounter visual oddities, check and adjust your .css file in /assets/css. New definitions may have been added or previous definitions changed.
--Make the appropriate changes in your course.yaml.
--# Make the appropriate changes in your course_template.yaml.
--Change your course name in app.yaml in the latest version of Course Builder.
--Change your version: value in app.yaml in the latest version.
+* Make a complete copy of your old version of Course Builder and all your data.
 
--Manually transfer other modifications you made in the individual template files.
+* To download your data use the etl command (or Console).  Instructions are here:  
+  https://www.google.com/edu/openonline/course-builder/docs/1.10/upgrade-course-builder/download-data.html
 
-* views/base.html -- needs to include script for activity-quizme.js
-* (as of 1.5) views/base_course.html -- needs to include script for activity-quizme.js
-*  NOTE: perhaps activity-quizme.js can be embedded in activity-generic.js to 
-*  avoid having to modify base_course.html. 
+* Download and unzip the latest version of Course Builder.
 
--Manually transfer any modifications you made to the Python .py files.
+* Copy the /assets and /data folders from your old version to the latest version. If you encounter 
+ visual oddities, check and adjust your .css file in /assets/css. New definitions may have been 
+ added or previous definitions changed.
 
-* controllers/assessments.py  :  ??? I don't see any customizations
-* tools/verify.py  : Search for CUSTOMIZATION around 10-12 lines
+NOTE:  If the Console (GUI) is used to make updates to the course, including assets, templates, etc.,
+then you can't save the course by copying the local versions of these data.  You have to download 
+the data and upload it after the upgrade. 
 
-NOTE: Quizly is implemented as a Custom component
--Update the Custom Quizly Component
-* modify main.py to load the module
-############ SKIP THIS ######
-* cp -r the ./mobilecsp directory, 
-  which includes its own main.py, app.yaml, index.yaml
-#############################
-* Copy the entire extensions directory (which is not present in the distro)
-  * cp -r the ./extensions/tags/quizly directory,  which includes __init__.py and a README
-* cp -r the ./modules/quizly directory,
-  which contains a README that says we couldn't get this to work
+NOTE: Assets and templates that have been 'overridden' using the Dashboard, will not be updated
+using appcfg.
+
+###  These files appear to be updated with the Dashboard (i.e., overridden)
+###  No need to change.
+#* Make the appropriate changes in your course.yaml.
+#* Make the appropriate changes in your course_template.yaml.
+
+###### To create a new course off of the base URL, use the Dashboard.
+### In Admin > Courses create a new course and Import your old (read-only) 
+### course into the new course you created.
+
+### Update Version - If you are making changes to a course
+* Change your version: value in app.yaml.
+
+### ******************* Mobile CSP CUSTOMIZATIONS  ******************************
+
+### TEMPLATES
+* views/base_course.html -- needs to include script for activity-quizme.js, which
+  is used for processing Quizly assessments. 
+
+### ASSETS
+* assets/lib/activity-generic-1.3.js.   Contains CUSTOMIZATIONS and console.log.
+  This file is used for Quizly assessments.
+
+### PYTHON Code
+* modules/quizly/quizly.py  -- contains code to render and process quizly exercises
+
+### Quizly  (Should we move Quizly to modules/quizly/resources?)
+
+NOTE: Quizly is implemented as a custom module in modules/quizly
+* modify main.py to register the module  (copy code from main.py)
+* cp -r the ./modules/quizly directory which contains quizly.py
 * Make sure the ./assets/lib/quizly folder is present.
   See the README files there for instructions on how to update quizly,
   which shouldn't be necessary to update GCB.
@@ -65,6 +116,8 @@ commands to the path.
 Type your email and application-specific password. There are no messages from Course Builder if you are successful.
 EMAIL: ram8647
 PASSWORD:  wkxz ubpf sufc kyhf
+PASSWORD (mobilecsp-19): ivbwuufepoaxhgym
+
 
 ** NOTE: Mine always crashes with a certificate error that's been reported on Stackoverflow:
 
@@ -83,8 +136,3 @@ appcfg.py update .
 
 -Downloading an existing app.  See instructions here:
 https://developers.google.com/appengine/docs/python/tools/uploadinganapp#Python_Uploading_the_app
-
-- Downloading Course Data
-sh scripts/etl.sh download course  /mobileCSP ram8647 ram8647.appspot.com --archive_path mobilecps-data.zip
-
-

@@ -91,10 +91,12 @@ var TOPLEVEL_BLOCKS = ["mutator_container", "InstantInTime", "YailTypeToBlocklyT
 var imgpath = "./quizly/media/";
 var maindocument = parent.document;
 
+
+//  Called from the html script when a button is pressed.
 Blockly.hello = function(command, quizname) {
   if (DEBUG) console.log("RAM: Blockly says " + command);
   if (command == 'submit')
-    submitNewToggle();
+    return submitNewToggle();
   else if (command == 'hint') 
     giveHint();
   else if (command == 'showquiz')
@@ -341,9 +343,18 @@ function showQuiz(quizname) {
   customizeQuizmeLanguage(quizname, keepers, components);
 
   if (DEBUG) console.log("RAM: quizname = " + quizname);
+
+  // Label the submit button depending on GCB or not
   var button = maindocument.getElementById('submit_new_toggle');
-  if (button) 
+  if (button) {
     button.innerHTML = "Submit";
+  } else {
+    button = maindocument.getElementById('gcb_check_answer');  
+    if (button) {
+      button.innerHTML = "Check Answer";
+    }
+  }
+
   Blockly.Quizme.quizName = quizname;
   Blockly.Quizme.description = Blockly.Quizme[quizname].description;
   Blockly.Quizme.question_type = Blockly.Quizme[quizname].problem_type;
@@ -718,7 +729,7 @@ function submitNewToggle() {
   var buttonLabel = maindocument.getElementById('submit_new_toggle').innerHTML;
   var result_element = maindocument.getElementById('quiz_result')
   if (buttonLabel == 'Submit') {
-    Blockly.Quizme.evaluateUserAnswer();
+    return Blockly.Quizme.evaluateUserAnswer();
   } else {
     showQuiz();
   }
@@ -809,19 +820,19 @@ Blockly.Quizme.evaluateUserAnswer = function() {
   }
   var result;
   if (Blockly.Quizme.answerType == EVAL_STMT) {
-    result = Blockly.Quizme.evaluateStatement(Blockly.Quizme);
+    result = Blockly.Quizme.evaluateStatement(Blockly.Quizme);  // Returns boolean
   }
   else if (Blockly.Quizme.answerType == EVAL_EXPR_FILLIN) {
-    result = Blockly.Quizme.evaluateEvalBlocksAnswerType(); 
+    result = Blockly.Quizme.evaluateEvalBlocksAnswerType();    // returns boolean
   }
   else if (Blockly.Quizme.answerType == FUNC_DEF) {
-    result = Blockly.Quizme.evaluateEvalFunctionDef(Blockly.Quizme); 
+    result = Blockly.Quizme.evaluateEvalFunctionDef(Blockly.Quizme);  // returns boolean
   }
   else if (Blockly.Quizme.answerType == PROC_DEF) {
-    result = Blockly.Quizme.evaluateEvalProcedureDef(Blockly.Quizme);
+    result = Blockly.Quizme.evaluateEvalProcedureDef(Blockly.Quizme); // returns boolean
   }
   else if (Blockly.Quizme.answerType == XML_BLOCKS) {
-    result = Blockly.Quizme.evaluateXmlBlocksAnswerType(this,
+    result = Blockly.Quizme.evaluateXmlBlocksAnswerType(this,      // returns boolean
              Blockly.Quizme.solution,
              Blockly.Quizme.VariableMappings);
   }
@@ -871,7 +882,8 @@ Blockly.Quizme.evaluateXmlBlocksAnswerType = function(helperObj, solution, mappi
      "Good!  Your solution is correct.",
 		 "Oops! Your solution contains a mistake. Try again.",
 		 true);
-  return result;
+  //  return result;
+  return result.indexOf(solution) != -1;
 }
 
 /**
@@ -1308,7 +1320,8 @@ Blockly.Quizme.evaluateStatement = function(helperObj) {
   Blockly.Quizme.giveFeedback(result[0],
     "Correct! Your code produces the same values as the target solution.  Good show!",
 			      "Oops. " + result[1] + ". Try again!", true);
-  return result;
+  //  return result;
+  return result[0];
 }
 
 /**

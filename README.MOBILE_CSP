@@ -1,0 +1,55 @@
+This is the directory for our GCB course:
+========================================
+
+Root Course
+===========
+The root course is at:
+http://https://ram8647.appspot.com
+
+That is the version that is updated when GCB is
+updated here. 
+
+Student-facing Branch
+=====================
+The main course for students is at:
+https://ram8647.appspot.com/mobileCSP/
+
+Teacher-facing Branch
+=====================
+The PD course is at:
+https://ram8647.appspot.com/teach_mobileCSP
+
+PD Branch
+=========
+The PD course is at:
+https://ram8647.appspot.com/pd_mobileCSP
+
+App Inventor Course
+===================
+Dave's AI only course is at:
+https://ram8647.appspot.com/mobileProgramming
+
+Basic information for setting up the course.
+===========================================
+* Current Version of GCB should be numbered -- e.g., 1.6.0
+* Current Version of MobileCSP should be named /mobilecsp
+* Deprecated versions should be named:  /mobilecsp-deprec
+* course.yaml -- This includes data for the splash page, including the blurb,
+  when the course starts, intro video or image, etc.
+
+* course_template.yaml -- Contains navigation and other content for all
+ courses within an appengine application.  I think this means that
+ all courses would have the same logo.
+
+* assets/img -- contains images and logos:
+  logo.png -- Logo used in header and nav-header
+
+Updating to a new GCB Version
+=============================
+Note: MobileCSP contains custom modules which must
+be updated properly.  See the instructions in 
+/mobileCSP/README.UPDATE
+
+
+
+

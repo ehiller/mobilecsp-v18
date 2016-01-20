@@ -58,11 +58,6 @@ SCHEMA = {
             'lesson': STRING,
             'choices': [STRING, CORRECT],
 
-            # ########## CUSTOMIZATIONS  ############
-            'correctAnswerQuizme': BOOLEAN,           # Custom
-            'correctAnswerQuizmePractice': BOOLEAN,   # Custom
-            # ########## END CUSTOMIZATIONS  ############
-
             # The fractional score for each choice in this question, if it is
             # multiple-choice. Each of these values should be between 0.0 and
             # 1.0, inclusive.
@@ -90,16 +85,6 @@ SCHEMA = {
             'allCorrectMinCount': INTEGER,
             'allCorrectOutput': STRING,
             'someIncorrectOutput': STRING
-        }, { # ######### CUSTOMIZATION  ###################
-            'questionType': 'quizme',          # Custom
-            'preamble' : STRING,               # Custom
-            'quizType' : STRING,               # Custom
-            'hints' : BOOLEAN, 
-            'hasanswerbox' : BOOLEAN, 
-            'correctAnswerQuizme': BOOLEAN,           # Custom
-            'correctAnswerQuizmePractice': BOOLEAN,   # Custom
-            'url': STRING,
-            # ######### CUSTOMIZATION  ###################
         }, {
             'questionType': 'freetext',
             'questionHTML': STRING,
@@ -1211,18 +1196,6 @@ class Verifier(object):
                         else:
                             # ordinary string
                             encoded_elt[k] = elt[k]
-                # ############ CUSTOMIZATION ##########
-                elif qt == 'correctAnswerQuizme':                       # Custom
-                    # customized type for Quizme activities
-                    elt_copy = dict(elt)
-                    #del elt_copy['questionType']  # redundant
-                    #encoded_elt['value'] = elt_copy
-                elif qt == 'correctAnswerQuizmePractice':               # Custom
-                    # customized type for Quizme activities
-                    elt_copy = dict(elt)
-                    #del elt_copy['questionType']  # redundant
-                    #encoded_elt['value'] = elt_copy
-                # ############ END CUSTOMIZATION ##########
                 else:
                     assert False
             else:
@@ -1263,14 +1236,6 @@ class Verifier(object):
                     'correctAnswerNumeric']
             if 'correctAnswerString' in elt:
                 encoded_elt['correctAnswerString'] = elt['correctAnswerString']
-
-            #   ################### CUSTOMIZATION ##############
-            if 'correctAnswerQuizme' in elt:
-                encoded_elt['correctAnswerQuizme'] = elt['correctAnswerQuizme']                 # Custom
-            if 'correctAnswerQuizmePractice' in elt:
-                encoded_elt['correctAnswerQuizmePractice'] = elt['correctAnswerQuizmePractice']  # Custom
-            #   ################### END CUSTOMIZATION ##############
-
             if 'correctAnswerRegex' in elt:
                 encoded_elt['correctAnswerRegex'] = Verifier.encode_regex(
                     elt['correctAnswerRegex'].value)

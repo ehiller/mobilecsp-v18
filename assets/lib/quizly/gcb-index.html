@@ -16,9 +16,23 @@
   </style>
 
 <script>
-function submitNewToggle() {
-  console.log("SubmitNewToggle");
-  Blockly.hello('submit');
+/**
+   Handler for the Quizly submit button.  It
+   evaluates the user's solution and posts
+   the result (true or false) on window.parent.quizlies
+   where it can be retrieved by the GCB quiz object.
+*/
+function checkAnswer() {
+  console.log("checkAnswer -- GCB");
+//  var result = Blockly.checkAnswerGCB('submit');
+  var result = Blockly.Quizme.evaluateUserAnswer();
+  var quizName = Blockly.Quizme.quizName
+  window.parent.quizlies['quizname']=quizName;
+  var thisQuiz = window.parent.quizlies[quizName];
+  thisQuiz.result = result;
+  // Comment this out if there is separate GCB button
+  // for submitting the result.
+  window.parent.checkAnswer();
 }
 
 function giveHint() {
@@ -42,21 +56,21 @@ function giveNewQuestion(quizname) {
 <body>
   <input type="hidden" id="quizname" value="">
   <h1 hidden="true" id="heading">Quizly: Live Coding Exercises for App Inventor</h1>
-  <table width="100%" height="100%" cellspacing="0" cellpadding="0">
-    <tr>
-     <td>
-       <table>
-	 <tr>
-          <td>
-	   <div id="selector_prompt">Choose a quiz :</div>
-	  </td>
-          <td>
-	   <div id="selector"> <select id="quiz_selector" onchange="showQuiz(this.options[this.selectedIndex].value)"> </select> </div>
-	  </td>
-	 </tr>
-       </table>
-    </td>
-    </tr>
+  <table width="100%" height="100%" cellspacing="0" cellpadding="0" style="border:0px">
+<!--     <tr> -->
+<!--      <td> -->
+<!--        <table> -->
+<!-- 	 <tr> -->
+<!--           <td> -->
+<!-- 	   <div id="selector_prompt">Choose a quiz :</div> -->
+<!-- 	  </td> -->
+<!--           <td> -->
+<!-- 	   <div id="selector"> <select id="quiz_selector" onchange="showQuiz(this.options[this.selectedIndex].value)"> </select> </div> -->
+<!-- 	  </td> -->
+<!-- 	 </tr> -->
+<!--        </table> -->
+<!--     </td> -->
+<!--     </tr> -->
     <tr>
      <td>
        <div id="quiz_question">Here is where the quiz question goes.</div>
@@ -70,11 +84,7 @@ function giveNewQuestion(quizname) {
           <button class="gcb-button gcb-button-primary" id="hint_button" onclick="giveHint()">Hint</button>
           </td>
           <td>
-          <button class="gcb-button gcb-button-primary" id="submit_new_toggle" onclick="submitNewToggle()">Submit</button>
-          </td>
-          <td>
-          <button hidden="true" class="gcb-button gcb-button-primary" id="new_question_button" onclick="giveNewQuestion('redo')">New Question</button>
-<!--           <div hidden="true" id="link_html">Here is where the link goes.</div> -->
+          <button class="gcb-button gcb-button-primary" id="gcb_check_answer" onclick="checkAnswer()">Check Answer</button>
           </td>
          </tr>
         </table>
@@ -91,7 +101,7 @@ function giveNewQuestion(quizname) {
            window.Blockly = blockly;
          }
        </script>
-       <iframe style="width: 100%; height: 100%; border: 0px solid #ccc;" src="blockly.html"></iframe>
+       <iframe style="width: 100%; height: 100%; border: 0px; padding: 1px; margin: 2px;" src="blockly.html"></iframe>
      </td>
     </tr>
   </table>
