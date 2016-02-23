@@ -78,6 +78,7 @@ def register_module():
         ('/forum', utils.ForumHandler),
         ('/preview', utils.PreviewHandler),
         ('/register', utils.RegisterHandler),
+        ('/resources', utils.ResourcesHandler),
         ('/rest/locale', utils.StudentLocaleRESTHandler),
         ('/review', lessons.ReviewHandler),
         ('/reviewdashboard', lessons.ReviewDashboardHandler),

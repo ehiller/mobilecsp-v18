@@ -1,0 +1,42 @@
+{% extends 'base_course.html' %}
+
+{% block subtitle %}
+  {# I18N: Title of the webpage. #}
+  - {{ gettext('Resources') }}
+{% endblock subtitle %}
+
+{% block top_content %}
+{% endblock %}
+
+{% block main_content %}
+<div>
+<style type="text/css">
+/* From the Creative Computing Course: KB: Styles for bios page. */
+.gcb-bios-name {
+  color: #b34c2b;
+  font-family: "open sans",arial,sans-serif;
+  font-size: 20px;
+  font-weight: normal;
+  margin: 10px 7px;
+}
+.gcb-bios-description {
+  font-family: "open sans",arial,sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  margin: 10px 7px;
+}
+</style>
+
+  <h1>Resources</h1>
+   <ul>
+    <li><a href="./staff">Staff</a></li>
+    <li><a target="_blank" href="http://appinventor.org">appinventor.org </a></li>
+    <li><a target="_blank" href="http://quizly.googlecode.com">Quizly</a></li>
+    <li><a target="_blank" href="https://docs.google.com/a/css.edu/document/d/1vRjZA6EkOS2VtBchDa1I6_M38zHlFykcJ1SuN4pBgFg">Trailblazer/Scholar Course Expectations</a>
+    <li><a target="_blank" href="https://docs.google.com/a/css.edu/document/d/1tmSlMu8NGZ5_Nn9js794N1q4RedQLDKzepA4XhePQmE">Explorer Expectations</a>
+   </ul>
+	
+</div>
+
+{% endblock %}
+
